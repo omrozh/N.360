@@ -1,0 +1,170 @@
+:root {
+    --netflix-red: #E50914;
+    --netflix-black: #141414;
+    --text-color: #f5f5f5;
+    --text-muted: #999;
+    --container-padding: 4rem;
+    --animation-duration: 1s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--netflix-black);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+/* Prevent scrolling during intro */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* --- Main Layout Container --- */
+.page-container {
+    display: flex;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* --- Image Pane --- */
+.image-pane {
+    flex: 0 0 50%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    padding: var(--container-padding);
+    /* Set up transition for the animation */
+    transition: transform var(--animation-duration) ease-in-out;
+}
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.image-wrapper img {
+    max-width: 100%;
+    max-height: 90vh;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Intro Button --- */
+.intro-button {
+    background-color: var(--netflix-red);
+    color: white;
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+    margin-top: 2rem;
+    opacity: 0; /* Hidden by default, shown by intro state */
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* --- Content Pane (Scrolling Episodes) --- */
+.content-pane {
+    flex: 1;
+    padding: var(--container-padding);
+    opacity: 0; /* Hidden by default, shown after intro */
+    transform: translateY(20px);
+    transition: opacity var(--animation-duration) ease-in-out, transform var(--animation-duration) ease-in-out;
+    transition-delay: 0.2s; /* Delay its appearance slightly */
+}
+/* --- Styles for episode blocks... (Identical to previous version) --- */
+.episode-block{max-width:60ch;min-height:60vh;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(30px);transition:opacity .8s ease-out,transform .8s ease-out}.episode-block.visible{opacity:1;transform:translateY(0)}.episode-block:first-child{min-height:90vh}.episode-meta{margin-bottom:1rem;font-weight:700}.episode-number{color:var(--netflix-red);font-size:1.1rem;letter-spacing:.1em}.episode-runtime{color:var(--text-muted);margin-left:1.5rem}.episode-title{font-size:3rem;font-weight:900;margin-bottom:1.5rem;line-height:1.2}h1.episode-title{font-size:4rem}.episode-synopsis{font-size:1.2rem;line-height:1.7;color:var(--text-color);opacity:.9}.btn-cta{display:inline-block;background-color:var(--netflix-red);color:#fff;padding:1rem 2.5rem;text-decoration:none;font-weight:700;font-size:1.1rem;border-radius:4px;margin-top:2rem;transition:transform .2s ease,background-color .2s ease}.btn-cta:hover{transform:scale(1.05);background-color:#f61421}
+
+
+/* --- INTRO ANIMATION STATE (Desktop) --- */
+.page-container.intro-overlay {
+    height: 100vh;
+    overflow: hidden;
+}
+.page-container.intro-overlay .image-pane {
+    /* This calculation centers the left pane in the viewport */
+    transform: translateX(calc(50vw - 50%));
+}
+.page-container.intro-overlay .content-pane {
+    opacity: 0;
+    pointer-events: none;
+}
+.page-container.intro-overlay .intro-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- AFTER INTRO STATE (Desktop default styles take over) --- */
+.page-container:not(.intro-overlay) .image-pane {
+    transform: translateX(0);
+}
+.page-container:not(.intro-overlay) .content-pane {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*
+ =========================================
+  MOBILE RESPONSIVENESS & ZOOM ANIMATION
+ =========================================
+*/
+@media (max-width: 992px) {
+    .page-container {
+        flex-direction: column;
+    }
+    
+    :root {
+        --container-padding: 1.5rem;
+    }
+    h1.episode-title{font-size:2.5rem}.episode-title{font-size:2rem}.episode-synopsis{font-size:1rem}.episode-block{min-height:auto;padding:3rem 0}.episode-block:first-child{min-height:auto}
+    
+    /* --- Mobile Default State (after animation) --- */
+    .image-pane {
+        position: static;
+        /* UPDATED: Height and padding will be animated from their intro values */
+        height: 0; 
+        padding: 0;
+        overflow: hidden;
+        /* UPDATED: Add transitions for the disappearance */
+        transition: opacity var(--animation-duration) ease-in-out, 
+                    transform var(--animation-duration) ease-in-out,
+                    height 0s linear var(--animation-duration), /* Collapse height after fade */
+                    padding 0s linear var(--animation-duration); /* Collapse padding after fade */
+    }
+    .image-wrapper img {
+        transition: transform var(--animation-duration) ease-in-out;
+    }
+
+    /* --- Mobile INTRO STATE --- */
+    .page-container.intro-overlay .image-pane {
+        /* NEW: Make it a full-screen fixed overlay */
+        position: fixed;
+        top: 0; left: 0;
+        z-index: 10;
+        width: 100%;
+        height: 100vh;
+        padding: var(--container-padding);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(0); /* Reset desktop transform */
+    }
+
+    /* --- Mobile AFTER INTRO STATE (Animation triggers) --- */
+    .page-container:not(.intro-overlay) .image-pane {
+        /* NEW: Animate it disappearing */
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(1.1); /* The zoom effect */
+    }
+}
