@@ -20,11 +20,11 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '3994338084161397');
+    fbq('init', '1320257476115471');
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=3994338084161397&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=1320257476115471&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
 </head>
@@ -70,7 +70,7 @@
                 <p>You spend money on ads that blend into a sea of sameness. You send cold outreach that gets marked as spam. You’re told to "trust the process" by incompetent self-proclaimed "pros" that deliver generic campaigns and vague reports.</p>
                 <p>The fundamental problem is this: <strong>Most marketing doesn't treat attention as a precious resource. It demands it, instead of earning it.</strong></p>
             </section>
-            
+    
             <section class="content-section" id="solution">
                 <h2>Our Process: How We Get You Read</h2>
                 <p>Most marketing is ignored. Ours isn't. We use a simple, three-step method to turn scrollers into readers, and readers into customers.</p>
@@ -93,9 +93,14 @@
             <section class="content-section" id="cta">
                 <h2>Ready to Stop Blending In?</h2>
                 <p>This is the end of our demo. The next step is a conversation about yours. Book a free strategy session to deconstruct your current marketing and brainstorm a campaign concept tailored to your brand. No hard sell, just value.</p>
-                <a href="https://calendly.com/omer-ozhan-notice360/30min" class="cta-button">Book Your Free Strategy Session</a>
+                <a id="cta-button" href="https://calendly.com/omer-ozhan-notice360/30min" class="cta-button">Book Your Free Strategy Session</a>
                 <p class="small-text">Limited slots available each month to ensure every partner gets our full attention.</p>
             </section>
+            <script type="text/javascript">
+                document.getElementById('cta-button').addEventListener('click', function() {
+                    fbq('track', 'Schedule');
+                }, false);
+            </script>
 
         </div>
     </main>
