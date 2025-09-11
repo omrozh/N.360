@@ -99,7 +99,9 @@
             <script type="text/javascript">
                 document.getElementById('cta-button').addEventListener('click', function() {
                     fbq('track', 'Schedule');
-                    document.location = 'https://calendly.com/omer-ozhan-notice360/30min'
+                    setTimeout(function() {
+                        document.location = 'https://calendly.com/omer-ozhan-notice360/30min'
+                    }, 400); 
                 }, false);
             </script>
 
