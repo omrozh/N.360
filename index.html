@@ -41,7 +41,7 @@
         <!-- Right Pane: The Scrolling Content -->
         <div class="right-pane">
             <section class="content-section" id="hero">
-                <img src="logo.png" style="width: 150px;" alt="">
+                <img onclick="document.location = 'https://notice360.agency'" src="logo.png" style="width: 150px;" alt="">
                 <br>
                 <br>
                 <h1>The Ad You Just Clicked is Our Entire Pitch.</h1>
@@ -98,10 +98,7 @@
             </section>
             <script type="text/javascript">
                 document.getElementById('cta-button').addEventListener('click', function() {
-                    fbq('track', 'Schedule');
-                    setTimeout(function() {
-                        document.location = 'https://calendly.com/omer-ozhan-notice360/30min'
-                    }, 400); 
+                    document.location = 'https://calendly.com/omer-ozhan-notice360/30min'
                 }, false);
             </script>
 
