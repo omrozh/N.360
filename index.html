@@ -119,7 +119,7 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ email_address: document.getElementById("email").value })
+                        body: JSON.stringify({ email: document.getElementById("email").value })
                     });
 
                     if (response.ok) {
