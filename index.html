@@ -104,25 +104,28 @@
             <section class="content-section" id="cta">
                 <h2>Ready to Stop Blending In?</h2>
                 <p>This is the end of our demo. If you would like to learn more about our strategy and system to elevate your brand to the next level get our free paper on banner blindness and our strategy to combat it.</p>
-                
-                <iframe
-                id="JotFormIFrame-252585185571061"
-                title="Lead Capture"
-                onload="window.parent.scrollTo(0,0)"
-                allowtransparency="true"
-                allow="geolocation; microphone; camera; fullscreen; payment"
-                src="https://form.jotform.com/252585185571061"
-                frameborder="0"
-                style="min-width:100%;max-width:100%;height:539px;border:none;"
-                scrolling="no"
-                >
-                </iframe>
-                <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
-                <script>window.jotformEmbedHandler("iframe[id='JotFormIFrame-252585185571061']", "https://form.jotform.com/")</script>
+                <p style="font-size: 12px;">Email</p>
+                <input id="email" type="text" style="font-size: 16px; padding: 10px; outline: none; border: 0.1px solid gray; width: 100%;" placeholder="Email">
+                <br>
+                <br>
+                <button type="button" id="submit-button" onclick="sendEmail()" style="cursor: pointer; color: white; border: none; background: dodgerblue; padding: 10px; border-radius: 5px;">Get Your Free Copy</button>
                 
                 <p class="small-text">Limited slots available each month to ensure every partner gets our full attention.</p>
             </section>
             <script type="text/javascript">
+                async function sendEmail(){
+                    const response = await fetch("https://hooks.zapier.com/hooks/catch/24632874/ums9y3z/", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email_address: document.getElementById("email").value })
+                    });
+
+                    if (response.ok) {
+                        document.getElementById("submit-button").style.innerText = "Submitted"
+                    }
+                }
                 document.getElementById('cta-button').addEventListener('click', function() {
                     document.location = 'https://calendly.com/omer-ozhan-notice360/30min'
                 }, false);
